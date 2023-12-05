@@ -22,6 +22,13 @@ function Login(props) {
             })
             .catch(error => {
               console.error('Error al enviar la solicitud:', error);
+                
+              Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Verifique su usuario y contraseña"
+              });
+
             });
     };
 
