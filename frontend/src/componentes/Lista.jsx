@@ -113,7 +113,7 @@ function Lista(props) {
             <td className="border border-purple-700 p-2">{fila.fecha}</td>
             <td className="border border-purple-700 p-2">{fila.rol.rol}</td>
             <td className="border border-purple-700 p-2 flex justify-around">
-              <button><i className="fa-solid fa-pen-to-square text-yellow-600"></i></button>
+              <button><i onClick={() => {props.cambiarVista(3,fila.id_user)}} className="fa-solid fa-pen-to-square text-yellow-600"></i></button>
               <button onClick={() => {confirmacionElimanar(fila.id_user,fila.persona.id_persona)}}><i className="fa-solid fa-trash text-red-500"></i></button>
             </td>
           </tr>

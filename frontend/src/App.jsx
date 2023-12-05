@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import './App.css'
 import Login from './componentes/Login'
@@ -7,6 +7,13 @@ import Dashboard from './componentes/Dashboard';
 
 function App() {
   const [token, setToken] = useState('');
+
+  useEffect(() => {
+    if (localStorage.getItem('token')) {
+      setToken(localStorage.getItem('token'));
+    }
+    
+  }, []);
 
   const UpdateToken = (valor) => {
     setToken(valor);
@@ -23,6 +30,7 @@ function App() {
         
         console.log('resultado de la api: ', response.data);
         UpdateToken('');
+        localStorage.removeItem('token');
       })
       .catch(error => {
         console.error('Error al enviar la solicitud:', error);

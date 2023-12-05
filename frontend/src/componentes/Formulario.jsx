@@ -2,8 +2,9 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 
 
-function divulario(props){
+function Formulario(props){
     const [rols, setRols] = useState([]);
+    const [user, setUser] = useState([]);
 
     useEffect(() => {
 
@@ -13,7 +14,6 @@ function divulario(props){
           },
         }).then(response => {
           // Manejar la respuesta de la API
-          console.log('resultado de api: ', response.data);
           setRols(response.data);
         })
         .catch(error => {
@@ -38,7 +38,7 @@ function divulario(props){
         
         axios.post('http://127.0.0.1:8000/api/usuarios', data, {
             headers: {
-                'Authorization': `Bearer ${props.token}`
+                Authorization: `Bearer ${props.token}`
             }
         })
             .then(response => {
@@ -64,7 +64,7 @@ function divulario(props){
                 <div className="mb-4">
                 <label className="block text-gray-700 text-sm font-bold mb-2">
                     Apellido:
-                    <input id="ape" type="text" name="primerapellido" className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"/>
+                    <input id="ape" type="text" name="primerapellido" className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
                 </label>
                 </div>
                 <div className="mb-4">
@@ -92,9 +92,13 @@ function divulario(props){
                     >
                     <option value="">Seleccionar Rol</option>
                     {
-                        rols.map((fila, index) => (
-                            <option key={index} value={fila.id_rol}>{fila.rol}</option>
-                        ))
+                        rols.map((fila, index) => {
+                            return (
+                                <option key={index} value={fila.id_rol} >
+                                    {fila.rol}
+                                </option>
+                            );
+                        })
                     }
                     </select>
                 </label>
@@ -106,4 +110,4 @@ function divulario(props){
     )
 }
 
-export default divulario;
+export default Formulario;

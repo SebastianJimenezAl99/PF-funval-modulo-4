@@ -31,7 +31,15 @@ class UserController extends Controller
 
     public function show($id){
         $user = User::find($id);
-        return $user;
+        $infor= [
+            'id_user' => $user->id_user,
+            'usuario' => $user->usuario,
+            'habilitado' => $user->habilitado,
+            'fecha' => $user->fecha,
+            'persona' => Persona::find($user->id_persona),
+            'rol' => Rol::find($user->id_rol),
+        ];
+        return $infor;
     }
 
     public function store(Request $request){

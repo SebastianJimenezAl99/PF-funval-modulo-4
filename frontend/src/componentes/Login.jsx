@@ -17,7 +17,8 @@ function Login(props) {
               // Manejar la respuesta de la API
               let respuesta = response.data
               console.log('token:', respuesta.access_token);
-              props.funToken(respuesta.access_token)
+              props.funToken(respuesta.access_token);
+              localStorage.setItem('token', respuesta.access_token);
             })
             .catch(error => {
               console.error('Error al enviar la solicitud:', error);

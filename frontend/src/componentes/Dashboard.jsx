@@ -7,20 +7,25 @@ function Dashboard(props){
     const [vistaCrear, setVistaCrear ] = useState(false);
     const [vistaDashboard, setVistaDashboard ] = useState(true);
     const [vistaEditar, setVistaEditar ] = useState(false);
+    const [idEditar, setIdEditar ] = useState(null);
+    
 
-    function cambiarVista(op) {
+    function cambiarVista(op,id) {
         if (op == 1) {
             setVistaDashboard(true);
             setVistaCrear(false);
             setVistaEditar(false);
+            setIdEditar(null);
         }else if(op == 2){
             setVistaDashboard(false);
             setVistaCrear(true);
             setVistaEditar(false);
+            setIdEditar(null);
         }else if(op == 3){
             setVistaDashboard(false);
             setVistaCrear(false);
             setVistaEditar(true);
+            setIdEditar(id);
         }else{
             setVistaDashboard(false);
             setVistaCrear(false);
@@ -67,10 +72,11 @@ function Dashboard(props){
     }else if (vistaEditar) {
         return (
             <div>
-                <h1>editar</h1>
-                <div>
-                    <button onClick={() => {cambiarVista(1)}}>Cancelar</button>
-                </div>
+                <nav className="px-8 py-4 flex justify-between bg-purple-700 text-white">
+                    <h2>Logo</h2>
+                    <button onClick={props.logout}>Cerrar Seccion</button>
+                </nav>
+                <h1>Vista para editar</h1>
             </div>
         )
     }else{
