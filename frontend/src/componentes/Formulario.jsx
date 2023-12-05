@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 
 function Formulario(props){
     const [rols, setRols] = useState([]);
-    const [user, setUser] = useState([]);
 
     useEffect(() => {
 
@@ -47,6 +46,14 @@ function Formulario(props){
             })
             .catch(error => {
               console.error('Error al enviar la solicitud:', error);
+            });
+
+        Swal.fire("Saved!", "", "success")
+            .then((result) => {
+                if (result.isConfirmed) {
+                // Ejecutar la función después de hacer clic en "OK"
+                props.cambiarVista(1);
+                }
             });
     }
 
@@ -103,7 +110,7 @@ function Formulario(props){
                     </select>
                 </label>
                 </div>
-                <button onClick={() => {guadarDatos(),props.cambiarVista(1)}} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Enviar</button>
+                <button onClick={() => {guadarDatos()}} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Guardar</button>
                 <button onClick={() => {props.cambiarVista(1)}} className="bg-gray-500 mx-3 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">Cancelar</button>
             </div>
         </div>

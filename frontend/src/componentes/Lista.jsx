@@ -85,6 +85,14 @@ function Lista(props) {
 
   }
 
+  function mensajeEditar() {
+    Swal.fire({
+      title: "Vista Editar",
+      text: "Nos encontramos Trabajando en esta vista",
+      icon: "info"
+    });
+  }
+
   return (
     <div className="max-w-7xl mx-auto p-4">
       <table className="w-full border border-collapse border-purple-700">
@@ -113,7 +121,7 @@ function Lista(props) {
             <td className="border border-purple-700 p-2">{fila.fecha}</td>
             <td className="border border-purple-700 p-2">{fila.rol.rol}</td>
             <td className="border border-purple-700 p-2 flex justify-around">
-              <button><i onClick={() => {props.cambiarVista(3,fila.id_user)}} className="fa-solid fa-pen-to-square text-yellow-600"></i></button>
+              <button><i onClick={() => {mensajeEditar()}} className="fa-solid fa-pen-to-square text-yellow-600"></i></button>
               <button onClick={() => {confirmacionElimanar(fila.id_user,fila.persona.id_persona)}}><i className="fa-solid fa-trash text-red-500"></i></button>
             </td>
           </tr>
