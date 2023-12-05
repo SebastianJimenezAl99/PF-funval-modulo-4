@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Persona;
+use App\Models\Rol;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -10,7 +12,21 @@ use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
     public function index(){
-        return User::all();
+        $users = User::all(); 
+        $infor = [];
+        foreach ($users as $user) {
+            $infor[] = [
+                'id_user' => $user->id_user,
+                'usuario' => $user->usuario,
+                'habilitado' => $user->habilitado,
+                'fecha' => $user->fecha,
+                'persona' => Persona::find($user->id_persona),
+                'rol' => Rol::find($user->id_rol),
+            ];
+        }
+
+
+        return $infor;
     }
 
     public function show($id){
@@ -19,21 +35,32 @@ class UserController extends Controller
     }
 
     public function store(Request $request){
-        $fechaHoy = Carbon::now();
-        $habilidato = 1;
 
-        $password = $request->password;
-        $contraseñaEncriptada = Hash::make($password);
+        $persona = new Persona();
 
-        $user = new User();
-        $user->usuario = $request->usuario;
-        $user->password = $contraseñaEncriptada;
-        $user->id_rol = $request->id_rol;
-        $user->id_persona = $request->id_persona;
-        $user->habilitado =  $habilidato;
-        $user->fecha = $fechaHoy;
+        $persona->primernombre = $request->primernombre;
+        $persona->primerapellido = $request->primerapellido;
         
-        $user->save();
+        $persona->save();
+
+        if (isset($persona->id_persona)) {
+            $fechaHoy = Carbon::now();
+            $habilidato = 1;
+    
+            $password = $request->password;
+            $contraseñaEncriptada = Hash::make($password);
+    
+            $user = new User();
+            $user->usuario = $request->usuario;
+            $user->password = $contraseñaEncriptada;
+            $user->id_rol = $request->id_rol;
+            $user->id_persona = $persona->id_persona;
+            $user->habilitado =  $habilidato;
+            $user->fecha = $fechaHoy;
+            
+            $user->save();
+        }
+       
 
         return $user;
     }

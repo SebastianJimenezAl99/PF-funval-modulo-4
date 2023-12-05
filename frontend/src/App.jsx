@@ -3,6 +3,7 @@ import { useState } from 'react'
 import './App.css'
 import Login from './componentes/Login'
 import axios from 'axios';
+import Dashboard from './componentes/Dashboard';
 
 function App() {
   const [token, setToken] = useState('');
@@ -15,7 +16,7 @@ function App() {
     const data = {
       token: token,
     };
-    
+
     axios.post('http://127.0.0.1:8000/api/auth/logout', data)
       .then(response => {
         // Manejar la respuesta de la API
@@ -32,9 +33,10 @@ function App() {
     <>
       {token ? (
         // Renderizar contenido cuando hay un token
-        <div>Tu contenido cuando hay un token
-           <button onClick={logout} >Cerrar Seccion</button>
-        </div>
+        <Dashboard 
+          logout={logout}
+          token={token}
+        />
        
       ) : (
         // Renderizar el componente de Login cuando no hay un token
